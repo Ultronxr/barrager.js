@@ -86,7 +86,8 @@ ws.onmessage = function (evt) {
   result.body.forEach && result.body.forEach(function (item) {
     item.forEach && item.forEach( msg => {
       if (msg.cmd == 'DANMU_MSG') {
-        barrager.shoot(msg.info[1]);
+        // 用户昵称：弹幕内容
+        barrager.shoot(msg.info[2][1] + ' ： ' + msg.info[1]);
       }
     });
   });

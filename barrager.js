@@ -1,3 +1,11 @@
+/*
+ * @Description: 
+ * @Version: 
+ * @Author: Ultronxr
+ * @Date: 2021-04-15 21:41:52
+ * @LastEditors: Ultronxr
+ * @LastEditTime: 2021-04-15 22:00:34
+ */
 /**
  * 给指定网页容器添加弹幕
  *
@@ -38,22 +46,11 @@ function Barrager(options) {
   this.barrage = barrage;
 
   this.options = Object.assign({}, {
-    spacelen: 100,
-    position: 'top'
+    // spacelen: 100,
+    // position: 'top'
   }, options);
 
-
   this.el.append(barrage);
-  this.barrageWidth = barrage.offsetWidth;
-  this.barrageHeight = barrage.offsetHeight;
-
-  console.log(this.barrageHeight);
-
-  this.tracks = [];
-  this.tracks.length = 5;
-
-  // 根据弹幕高度设置 弹幕轨道数
-  this.tracked = false;
 }
 
 /**
@@ -75,46 +72,7 @@ Barrager.prototype.shoot = function(content, options) {
   item.className = 'barrage-item';
   item.innerHTML = content;
 
-  bindTransitionEvent(item, function() {
-  	this.remove();
-  });
-  
   this.barrage.append(item);
-
-  var trackNum = this.whichTrack();
-
-  var itemWidth = item.offsetWidth;
-  item.style.right = -itemWidth + 'px';
-  item.style.top = trackNum*30 + 'px';
-
-  console.log(item.style.top);
-
-  var offsetX = this.barrageWidth + itemWidth;
-  
-  window.requestAnimationFrame(()=>{
-    item.style.transform = 'translateX(-'+offsetX+'px)';
-  });
-}
-
-// 判断当前字幕应该进入哪一个轨道
-Barrager.prototype.whichTrack = function () {
-  var size = this.tracks.length;
-  var index = Math.floor(Math.random()*size);
-
-  var laststamp = this.tracks[index];
-  var timestamp = + new Date;
-
-  if(laststamp) {
-
-  } else {
-    laststamp = timestamp;
-  }
-
-  return index;
-}
-
-function bindTransitionEvent(el, callback) {
-  transitionEvent && el.addEventListener(transitionEvent, callback);
 }
 
 function whichTransitionEvent(){
