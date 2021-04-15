@@ -85,9 +85,14 @@ ws.onmessage = function (evt) {
 
   result.body.forEach && result.body.forEach(function (item) {
     item.forEach && item.forEach( msg => {
+      // 收到弹幕内容
       if (msg.cmd == 'DANMU_MSG') {
         // 用户昵称：弹幕内容
-        barrager.shoot(msg.info[2][1] + ' ： ' + msg.info[1]);
+        barrager.shoot("<span class='nick'>" + msg.info[2][1] + "</span> ： " + msg.info[1]);
+      }
+      // 用户进入直播间
+      if (msg.cmd == 'INTERACT_WORD'){
+        barrager.shoot("<div class='enter_room'>" + msg.data.uname + " 进入直播间。</div>");
       }
     });
   });

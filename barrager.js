@@ -4,7 +4,7 @@
  * @Author: Ultronxr
  * @Date: 2021-04-15 21:41:52
  * @LastEditors: Ultronxr
- * @LastEditTime: 2021-04-15 22:00:34
+ * @LastEditTime: 2021-04-15 23:00:04
  */
 /**
  * 给指定网页容器添加弹幕
@@ -73,6 +73,9 @@ Barrager.prototype.shoot = function(content, options) {
   item.innerHTML = content;
 
   this.barrage.append(item);
+
+  // 滚动滚动条到最底部
+  window.scrollTo(0, document.scrollingElement.scrollHeight);
 }
 
 function whichTransitionEvent(){
