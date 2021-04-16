@@ -75,7 +75,8 @@ ws.onopen = function () {
   var data = JSON.stringify(auth_params);
   var byte = convertToArrayBuffer(data, 7);
   ws.send(byte);
-  console.log('ws.sending...', auth_params);
+  console.log('ws open.', auth_params);
+  barrager.shoot("ws连接成功。");
 };
 
 ws.onmessage = function (evt) {
@@ -87,12 +88,32 @@ ws.onmessage = function (evt) {
     item.forEach && item.forEach( msg => {
       // 收到弹幕内容
       if (msg.cmd == 'DANMU_MSG') {
-        // 用户昵称：弹幕内容
-        barrager.shoot("<span class='nick'>" + msg.info[2][1] + " ： </span>" + msg.info[1]);
+        // [粉丝牌 等级] 用户昵称：弹幕内容
+        let medal = '';
+        if(msg.info[3] != null && msg.info[3].length > 0){
+          medal = msg.info[3][1] + ' ' + msg.info[3][0];
+        }
+        barrager.shoot("<span class='medal'>[" + medal + "] </span><span class='nick'>" + msg.info[2][1] + " ： </span>" + msg.info[1]);
       }
       // 用户进入直播间
       if (msg.cmd == 'INTERACT_WORD'){
-        barrager.shoot("<div class='enter_room'>" + msg.data.uname + " 进入直播间。</div>");
+        let medal = '';
+        if(msg.data.fans_medal != null && msg.data.fans_medal.medal_name != ''){
+          medal = msg.data.fans_medal.medal_name + ' ' + msg.data.fans_medal.medal_level;
+        }
+        // barrager.shoot("<div class='enter_room'>[" + medal + '] ' + msg.data.uname + " 进入直播间。</div>");
+
+        let enter_room_msg = "[" + medal + '] ' + msg.data.uname + " 进入直播间。";
+        document.getElementById('enter_room_input').value = enter_room_msg;
+      }
+      // 收到礼物
+      if (msg.cmd == 'SEND_GIFT'){
+        let medal = '';
+        if(msg.data.medal_info != null && msg.data.medal_info.medal_name != ''){
+          medal = msg.data.medal_info.medal_name + ' ' + msg.data.medal_info.medal_level;
+        }
+        let gift = msg.data.giftName + ' * ' + msg.data.num;
+        barrager.shoot("<span class='medal'>[" + medal + "] </span><span class='nick'>" + msg.data.uname + " <span class='send_gift'>投喂礼物 ： </span></span>" + gift)
       }
     });
   });
@@ -105,11 +126,13 @@ ws.onmessage = function (evt) {
 ws.onclose = function () {
   // 关闭 websocket
   console.log('ws closed.');
+  barrager.shoot("ws连接关闭。");
 };
 
 ws.onerror = function (err) {
   // 关闭 websocket
   console.log('ws error:', err);
+  barrager.shoot("ws连接出错。");
 };
 
 function stringToByte(str) {
@@ -274,7 +297,7 @@ function heartBeat() {
   clearTimeout(HEART_BEAT_TIMER);
   var t = convertToArrayBuffer({}, 2);
 
-  console.log(HEART_BEAT_TIMER);
+  console.log('HEART_BEAT_TIMER ' + HEART_BEAT_TIMER);
   ws.send(t);
   HEART_BEAT_TIMER = setTimeout(function () {
     heartBeat()

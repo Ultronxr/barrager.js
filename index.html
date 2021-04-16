@@ -4,7 +4,7 @@
  * @Author: Ultronxr
  * @Date: 2021-04-15 21:14:39
  * @LastEditors: Ultronxr
- * @LastEditTime: 2021-04-15 23:08:51
+ * @LastEditTime: 2021-04-16 10:01:22
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,24 +12,43 @@
     <meta charset="UTF-8">
     <title>哔哩哔哩直播间弹幕获取</title>
     <style>
+      body, .chat, .container, .barrage{
+        position: absolute;
+        width: 500px;
+      }
       .barrage-item{
         color: red;
       }
-      .nick{
+      .barrage-item .medal{
+        color: rgb(100, 100, 100);
+      }
+      .barrage-item .nick{
         color: #000;
       }
-      .enter_room{
+      .barrage-item .enter_room{
         color: #ccc;
+      }
+      .barrage-item .send_gift{
+        color: rgb(255, 44, 244);
+      }
+      #enter_room_input{
+        position: fixed;
+        height: 25px;
+        width: 500px;
+        bottom: 5px;
+        font-size: 16px;
+        color: rgb(100, 100, 100);
       }
     </style>
 </head>
 <body>
   <div class="chat">
     <div id="container" class="container"></div>
+    <input id="enter_room_input" disabled="disabled" value="进入直播间。">
   </div>
 
   <script type="text/javascript" src="barrager.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/pako@2.0.3/dist/pako.min.js"></script>
+  <script type="text/javascript" src="pako.min.js"></script>
 
   <script type="text/javascript">
     var roomId = getQuery('roomId');
@@ -54,7 +73,6 @@
       return(false);
     }
   </script>
-
 
   <script type="text/javascript" src="bilibili.js"></script>
 </body>
