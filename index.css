@@ -31,13 +31,13 @@ color: red;
 }
 #enter_room_input{
     position: fixed;
-    height: 30px;
-    width: 100%;
+    height: 40px;
+    width: 500px;
     bottom: 5px;
-    font-size: 20px;
+    font-size: 200%;
     color: rgb(100, 100, 100);
 }
 #enter_room_place_holder{
-    height: 45px;
+    height: 55px;
     width: 100%;
 }
