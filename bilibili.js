@@ -82,7 +82,7 @@ ws.onopen = function () {
 ws.onmessage = function (evt) {
   var result = convertToObject(evt.data);
 
-  console.log('data received:', result);
+  //console.log('data received:', result);
 
   result.body.forEach && result.body.forEach(function (item) {
     item.forEach && item.forEach( msg => {

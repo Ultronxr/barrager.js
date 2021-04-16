@@ -1,0 +1,43 @@
+html{
+    position: relative;
+}
+body{
+    position: relative;
+    width: 70%;
+    margin: auto;
+}
+.chat, .container, .barrage{
+position: relative;
+    width: 100%;
+}
+.barrage-item{
+color: red;
+    font-size: 200%;
+}
+.barrage-item .medal{
+    color: rgb(100, 100, 100);
+}
+.barrage-item .nick{
+    color: #000;
+}
+.barrage-item .enter_room{
+    color: #ccc;
+}
+.barrage-item .subscribe{
+    color: rgb(255, 44, 244);
+}
+.barrage-item .send_gift{
+    color: rgb(255, 44, 244);
+}
+#enter_room_input{
+    position: fixed;
+    height: 30px;
+    width: 100%;
+    bottom: 5px;
+    font-size: 20px;
+    color: rgb(100, 100, 100);
+}
+#enter_room_place_holder{
+    height: 45px;
+    width: 100%;
+}

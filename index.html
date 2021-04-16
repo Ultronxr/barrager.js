@@ -4,87 +4,61 @@
  * @Author: Ultronxr
  * @Date: 2021-04-15 21:14:39
  * @LastEditors: Ultronxr
- * @LastEditTime: 2021-04-16 11:52:58
+ * @LastEditTime: 2021-04-16 14:21:18
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>哔哩哔哩直播间弹幕获取</title>
-    <style>
-      body{
-        position: absolute;
-      }
-      .chat, .container, .barrage{
-        position: relative;
-        width: 500px;
-      }
-      .barrage-item{
-        color: red;
-      }
-      .barrage-item .medal{
-        color: rgb(100, 100, 100);
-      }
-      .barrage-item .nick{
-        color: #000;
-      }
-      .barrage-item .enter_room{
-        color: #ccc;
-      }
-      .barrage-item .subscribe{
-        color: rgb(255, 44, 244);
-      }
-      .barrage-item .send_gift{
-        color: rgb(255, 44, 244);
-      }
-      #enter_room_input{
-        position: fixed;
-        height: 25px;
-        width: 500px;
-        bottom: 5px;
-        font-size: 16px;
-        color: rgb(100, 100, 100);
-      }
-      #enter_room_place_holder{
-        height: 40px;
-        width: 500px;
-      }
-    </style>
+    <link type="text/css" href="index.css" rel="stylesheet">
 </head>
 <body>
   <div class="chat">
     <div id="container" class="container"></div>
     <div id="enter_room_place_holder"></div>
+    <input id="enter_room_input" disabled="disabled" value="进入直播间。">
   </div>
-  <input id="enter_room_input" disabled="disabled" value="进入直播间。">
 
   <script type="text/javascript" src="barrager.js"></script>
   <script type="text/javascript" src="pako.min.js"></script>
-
   <script type="text/javascript">
-    var roomId = getQuery('roomId');
-    if(roomId == null || roomId == ''){
-      console.log('请输入房间号！');
-      // 央视频直播间
-      roomId = '21623527';
-      window.location.href = '?roomId=' + roomId;
-    }
-
     var barrager = new Barrager({
       el: 'container'
     });
 
-    function getQuery(variable){
+    // 获取roomId
+    var roomId = getHrefArg('roomId');
+    if(roomId == null || roomId == ''){
+      alert('请输入房间号！');
+      roomId = '1';
+      window.location.href = '?roomId=' + roomId;
+    }
+    function getHrefArg(variable){
       let query = window.location.search.substring(1);
       let vars = query.split("&");
-      for (let i=0;i<vars.length;i++) {
+      for (let i = 0; i < vars.length; i++) {
         let pair = vars[i].split("=");
-        if(pair[0] == variable){return parseInt(pair[1]);}
+        if(pair[0] == variable) {
+          if(pair[1] == null || pair[1] == ''){
+            return '';
+          }
+          return parseInt(pair[1]);
+        }
       }
       return(false);
     }
-  </script>
 
+    // 自动调整fixed元素的宽度
+    function adjustWidth() {
+      let parentwidth = document.getElementById('enter_room_place_holder').offsetWidth;
+      document.getElementById('enter_room_input').style = 'width:'+parentwidth+'px;';
+    }
+    adjustWidth();
+    window.addEventListener("resize", function(){
+      adjustWidth();
+    });
+  </script>
   <script type="text/javascript" src="bilibili.js"></script>
 </body>
 </html>
