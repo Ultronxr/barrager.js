@@ -33,11 +33,11 @@ color: red;
     position: fixed;
     height: 40px;
     width: 500px;
-    bottom: 5px;
+    bottom: 10px;
     font-size: 200%;
     color: rgb(100, 100, 100);
 }
 #enter_room_place_holder{
-    height: 55px;
+    height: 60px;
     width: 100%;
 }
