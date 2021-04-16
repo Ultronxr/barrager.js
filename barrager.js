@@ -4,7 +4,7 @@
  * @Author: Ultronxr
  * @Date: 2021-04-15 21:41:52
  * @LastEditors: Ultronxr
- * @LastEditTime: 2021-04-15 23:00:04
+ * @LastEditTime: 2021-04-16 11:47:09
  */
 /**
  * 给指定网页容器添加弹幕
@@ -36,9 +36,9 @@ function Barrager(options) {
   var el = options.el;
   this.el = el = typeof el === 'string' ? document.getElementById(el) : el;
 
-  if(el.style.position !== 'absolute') {
-	el.style.position = 'absolute';
-  }
+  // if(el.style.position !== 'absolute') {
+	//   el.style.position = 'absolute';
+  // }
 
   var barrage = document.createElement('div');
   barrage.className = 'barrage';

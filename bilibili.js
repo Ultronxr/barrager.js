@@ -91,29 +91,31 @@ ws.onmessage = function (evt) {
         // [粉丝牌 等级] 用户昵称：弹幕内容
         let medal = '';
         if(msg.info[3] != null && msg.info[3].length > 0){
-          medal = msg.info[3][1] + ' ' + msg.info[3][0];
+          medal = '[' + msg.info[3][1] + ' ' + msg.info[3][0] + '] ';
         }
-        barrager.shoot("<span class='medal'>[" + medal + "] </span><span class='nick'>" + msg.info[2][1] + " ： </span>" + msg.info[1]);
+        barrager.shoot("<span class='medal'>" + medal + "</span><span class='nick'>" + msg.info[2][1] + " ： </span>" + msg.info[1]);
       }
-      // 用户进入直播间
+      // 用户进入直播间 和 关注直播间
       if (msg.cmd == 'INTERACT_WORD'){
         let medal = '';
         if(msg.data.fans_medal != null && msg.data.fans_medal.medal_name != ''){
-          medal = msg.data.fans_medal.medal_name + ' ' + msg.data.fans_medal.medal_level;
+          medal = '[' + msg.data.fans_medal.medal_name + ' ' + msg.data.fans_medal.medal_level + '] ';
         }
-        // barrager.shoot("<div class='enter_room'>[" + medal + '] ' + msg.data.uname + " 进入直播间。</div>");
-
-        let enter_room_msg = "[" + medal + '] ' + msg.data.uname + " 进入直播间。";
-        document.getElementById('enter_room_input').value = enter_room_msg;
+        if (msg.data.msg_type == '1'){
+          let enter_room_msg = medal + msg.data.uname + " 进入直播间。";
+          document.getElementById('enter_room_input').value = enter_room_msg;
+        } else if (msg.data.msg_type == '2'){
+          barrager.shoot("<div class='subscribe'>" + medal + msg.data.uname + " 关注了直播间。</div>");
+        }
       }
       // 收到礼物
       if (msg.cmd == 'SEND_GIFT'){
         let medal = '';
         if(msg.data.medal_info != null && msg.data.medal_info.medal_name != ''){
-          medal = msg.data.medal_info.medal_name + ' ' + msg.data.medal_info.medal_level;
+          medal = '[' + msg.data.medal_info.medal_name + ' ' + msg.data.medal_info.medal_level + '] ';
         }
         let gift = msg.data.giftName + ' * ' + msg.data.num;
-        barrager.shoot("<span class='medal'>[" + medal + "] </span><span class='nick'>" + msg.data.uname + " <span class='send_gift'>投喂礼物 ： </span></span>" + gift)
+        barrager.shoot("<span class='send_gift'>" + medal + msg.data.uname + " 投喂礼物 ： " + gift + '</span>');
       }
     });
   });

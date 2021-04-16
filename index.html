@@ -4,7 +4,7 @@
  * @Author: Ultronxr
  * @Date: 2021-04-15 21:14:39
  * @LastEditors: Ultronxr
- * @LastEditTime: 2021-04-16 10:01:22
+ * @LastEditTime: 2021-04-16 11:52:58
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,8 +12,11 @@
     <meta charset="UTF-8">
     <title>哔哩哔哩直播间弹幕获取</title>
     <style>
-      body, .chat, .container, .barrage{
+      body{
         position: absolute;
+      }
+      .chat, .container, .barrage{
+        position: relative;
         width: 500px;
       }
       .barrage-item{
@@ -28,6 +31,9 @@
       .barrage-item .enter_room{
         color: #ccc;
       }
+      .barrage-item .subscribe{
+        color: rgb(255, 44, 244);
+      }
       .barrage-item .send_gift{
         color: rgb(255, 44, 244);
       }
@@ -39,13 +45,18 @@
         font-size: 16px;
         color: rgb(100, 100, 100);
       }
+      #enter_room_place_holder{
+        height: 40px;
+        width: 500px;
+      }
     </style>
 </head>
 <body>
   <div class="chat">
     <div id="container" class="container"></div>
-    <input id="enter_room_input" disabled="disabled" value="进入直播间。">
+    <div id="enter_room_place_holder"></div>
   </div>
+  <input id="enter_room_input" disabled="disabled" value="进入直播间。">
 
   <script type="text/javascript" src="barrager.js"></script>
   <script type="text/javascript" src="pako.min.js"></script>
