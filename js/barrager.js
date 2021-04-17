@@ -4,7 +4,7 @@
  * @Author: Ultronxr
  * @Date: 2021-04-15 21:41:52
  * @LastEditors: Ultronxr
- * @LastEditTime: 2021-04-16 11:47:09
+ * @LastEditTime: 2021-04-17 20:32:17
  */
 /**
  * 给指定网页容器添加弹幕
@@ -72,10 +72,17 @@ Barrager.prototype.shoot = function(content, options) {
   item.className = 'barrage-item';
   item.innerHTML = content;
 
+  let scrollFlag = 0;
+  // 如果滚动条在最底部，增加页面内容时自动滚动到最底部；滚动条往上拉，窗口就停住不自动滚动到底部
+  if($(window).scrollTop() + $(window).height() == $(document).height()){
+    scrollFlag = 1;
+  }
   this.barrage.append(item);
-
-  // 滚动滚动条到最底部
-  window.scrollTo(0, document.scrollingElement.scrollHeight);
+  if(scrollFlag == 1){
+    scrollToBottom();
+  } else {
+    $('#new_msg_info').css('display', 'block');
+  }
 }
 
 function whichTransitionEvent(){

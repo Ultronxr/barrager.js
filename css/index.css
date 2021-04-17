@@ -41,3 +41,14 @@ color: red;
     height: 60px;
     width: 100%;
 }
+#new_msg_info{
+    position: fixed;
+    bottom: 60px;
+    background-color: #00afeb;
+    color: #fff;
+    font-size: 150%;
+    padding: 2px 5px;
+    text-align: center;
+    display: none;
+    cursor: pointer;
+}
